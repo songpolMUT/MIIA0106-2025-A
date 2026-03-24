@@ -17,6 +17,8 @@ def init_db():
     cur.close()
     conn.close()
 
+# เพิ่มบรรทัดนี้ลงไปตรงนี้เลยครับ (ห้ามเว้นวรรคข้างหน้า) เพื่อให้มันสร้างตารางทันทีที่เปิดแอป
+init_db()
 @app.route("/create_key", methods=["POST"])
 def create_key():
     data = request.json
@@ -113,6 +115,7 @@ def delete_key():
     conn.close()
     return jsonify({"สถานะ": "ลบคีย์สำเร็จ"})
 
+
+
 if __name__ == "__main__":
-    init_db()
     app.run(host="0.0.0.0", port=5000)
