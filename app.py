@@ -135,41 +135,122 @@ def admin_app():
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
         <title>Mobile Admin Panel</title>
-        <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&display=swap" rel="stylesheet">
         <style>
             :root {
-                --primary: #4e73df;
-                --success: #1cc88a;
-                --danger: #e74a3b;
-                --warning: #f6c23e;
-                --dark: #5a5c69;
-                --bg: #f8f9fc;
+                --primary: #d81b60;
+                --primary-gradient: linear-gradient(90deg, #ff2a6d, #b824ea);
+                --success: #00e6b8;
+                --danger: #ff4d4d;
+                --warning: #ffb84d;
+                --bg-dark: #09050e;
+                --card-bg: #140a1b;
+                --border-color: #3b1d47;
+                --text-main: #ffffff;
+                --text-muted: #a099a5;
             }
 
             * { box-sizing: border-box; font-family: 'Kanit', sans-serif; }
-            body { background-color: var(--bg); margin: 0; padding: 15px; color: #333; }
+            body { 
+                background: radial-gradient(circle at top, #2b153b, var(--bg-dark)); 
+                background-attachment: fixed;
+                margin: 0; 
+                padding: 15px; 
+                color: var(--text-main); 
+            }
             
             .container { max-width: 800px; margin: auto; }
             .header { text-align: center; margin-bottom: 20px; }
+            .header h2 {
+                color: transparent;
+                background: var(--primary-gradient);
+                -webkit-background-clip: text;
+                background-clip: text;
+                text-shadow: 0 0 10px rgba(255, 42, 109, 0.3);
+                font-weight: 600;
+                letter-spacing: 1px;
+            }
             
-            .card { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin-bottom: 20px; }
+            .card { 
+                background: var(--card-bg); 
+                border-radius: 12px; 
+                padding: 20px; 
+                box-shadow: 0 4px 20px rgba(0,0,0,0.5); 
+                border: 1px solid var(--border-color);
+                margin-bottom: 20px; 
+            }
             .input-group { display: flex; flex-direction: column; gap: 10px; }
-            input { padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 16px; outline: none; }
-            input:focus { border-color: var(--primary); }
-            .btn { padding: 12px; border: none; border-radius: 8px; color: white; font-weight: 500; cursor: pointer; font-size: 16px; width: 100%; transition: 0.2s; }
-            .btn-primary { background-color: var(--primary); }
-            .btn-success { background-color: var(--success); }
-            .btn-danger { background-color: var(--danger); }
-            .btn-warning { background-color: var(--warning); color: #333; }
+            input { 
+                padding: 12px; 
+                border: 1px solid var(--border-color); 
+                background: #0f0714;
+                color: white;
+                border-radius: 8px; 
+                font-size: 16px; 
+                outline: none; 
+                transition: 0.3s;
+            }
+            input:focus { 
+                border-color: #ff2a6d; 
+                box-shadow: 0 0 10px rgba(255, 42, 109, 0.4);
+            }
+            input::placeholder { color: #6a5e72; }
+
+            .btn { 
+                padding: 12px; 
+                border: 1px solid transparent; 
+                border-radius: 8px; 
+                font-weight: 500; 
+                cursor: pointer; 
+                font-size: 16px; 
+                width: 100%; 
+                transition: 0.3s; 
+            }
+            .btn-primary { 
+                background: var(--primary-gradient);
+                color: white; 
+                border: none;
+                box-shadow: 0 0 15px rgba(255, 42, 109, 0.4);
+            }
+            .btn-primary:hover { box-shadow: 0 0 25px rgba(255, 42, 109, 0.7); }
+            
+            .btn-success { background: rgba(0, 230, 184, 0.1); border-color: var(--success); color: var(--success); }
+            .btn-success:hover { background: var(--success); color: black; box-shadow: 0 0 15px rgba(0, 230, 184, 0.4); }
+            
+            .btn-danger { background: rgba(255, 77, 77, 0.1); border-color: var(--danger); color: var(--danger); }
+            .btn-danger:hover { background: var(--danger); color: white; box-shadow: 0 0 15px rgba(255, 77, 77, 0.4); }
+            
+            .btn-warning { background: rgba(255, 184, 77, 0.1); border-color: var(--warning); color: var(--warning); }
+            .btn-warning:hover { background: var(--warning); color: black; box-shadow: 0 0 15px rgba(255, 184, 77, 0.4); }
+            
             .btn:active { transform: scale(0.98); }
 
             .key-list { display: flex; flex-direction: column; gap: 15px; }
-            .key-item { background: white; border-radius: 12px; padding: 15px; border-left: 5px solid var(--primary); box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+            .key-item { 
+                background: var(--card-bg); 
+                border-radius: 12px; 
+                padding: 15px; 
+                border: 1px solid var(--border-color);
+                border-left: 5px solid var(--primary); 
+                box-shadow: 0 4px 10px rgba(0,0,0,0.3); 
+            }
             .key-info { margin-bottom: 12px; }
-            .key-name { font-weight: 600; font-size: 18px; color: var(--primary); }
-            .key-detail { font-size: 14px; color: #666; margin: 4px 0; }
+            .key-name { 
+                font-weight: 600; 
+                font-size: 18px; 
+                color: #ff2a6d; 
+                text-shadow: 0 0 8px rgba(255, 42, 109, 0.5);
+            }
+            .key-detail { font-size: 14px; color: var(--text-muted); margin: 4px 0; }
+            .key-detail b { color: #d4c5db; }
+
             .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; }
-            .badge-expired { background: #ffdada; color: var(--danger); }
+            .badge-expired { 
+                background: rgba(255, 77, 77, 0.2); 
+                color: var(--danger); 
+                border: 1px solid var(--danger);
+                box-shadow: 0 0 5px rgba(255, 77, 77, 0.3);
+            }
             
             .action-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
             .action-grid .btn { padding: 8px; font-size: 14px; }
@@ -187,7 +268,7 @@ def admin_app():
 
     <div class="container">
         <div class="header">
-            <h2>Admin Control Panel</h2>
+            <h2>ADMIN CONTROL PANEL</h2>
         </div>
 
         <div class="card">
@@ -223,7 +304,7 @@ def admin_app():
 
         async function fetchKeys() {
             const keyList = document.getElementById("keyList");
-            keyList.innerHTML = "<p style='text-align:center'>กำลังโหลดข้อมูล...</p>";
+            keyList.innerHTML = "<p style='text-align:center; color: var(--text-muted);'>กำลังโหลดข้อมูล...</p>";
             
             try {
                 const response = await fetch(`${SERVER_URL}/get_all_keys`);
@@ -245,11 +326,11 @@ def admin_app():
 
                     const div = document.createElement("div");
                     div.className = "key-item";
-                    div.style.borderLeftColor = isExpired ? "var(--danger)" : "var(--primary)";
+                    div.style.borderLeftColor = isExpired ? "var(--danger)" : "#b824ea";
                     
                     div.innerHTML = `
                         <div class="key-info">
-                            <div class="key-name">${key} ${isExpired ? '<span class="badge badge-expired">EXPIRED</span>' : ''}</div>
+                            <div class="key-name" style="${isExpired ? 'color: var(--danger); text-shadow: 0 0 8px rgba(255,77,77,0.5);' : ''}">${key} ${isExpired ? '<span class="badge badge-expired">EXPIRED</span>' : ''}</div>
                             <div class="key-detail"><b>HWID:</b> ${hwid}</div>
                             <div class="key-detail"><b>Expires:</b> ${expireFormatted}</div>
                         </div>
@@ -261,7 +342,7 @@ def admin_app():
                     keyList.appendChild(div);
                 });
             } catch (error) {
-                keyList.innerHTML = "<p style='color:red; text-align:center'>เชื่อมต่อเซิร์ฟเวอร์ไม่ได้</p>";
+                keyList.innerHTML = "<p style='color:var(--danger); text-align:center; font-weight:bold;'>เชื่อมต่อเซิร์ฟเวอร์ไม่ได้</p>";
             }
         }
 
